@@ -1,38 +1,40 @@
 class Pokemon {
-  int? id;
-  String? num;
-  String? name;
-  String? img;
-  List<String>? type;
-  String? height;
-  String? weight;
-  String? candy;
-  int? candyCount;
-  String? egg;
-  double? spawnChance;
-  double? avgSpawns;
-  String? spawnTime;
-  List<double>? multipliers;
-  List<String>? weaknesses;
-  List<Evolution>? nextEvolution;
+  final int id;
+  final String num;
+  final String name;
+  final String img;
+  final List<String> type;
+  final String height;
+  final String weight;
+  final String candy;
+  final double candyCount;
+  final String egg;
+  final double spawnChance;
+  final double avgSpawns;
+  final String spawnTime;
+  final List<double> multipliers;
+  final List<String> weaknesses;
+  final List<Map<String, String>> prevEvolution;
+  final List<Map<String, String>> nextEvolution;
 
   Pokemon({
-    this.id,
-    this.num,
-    this.name,
-    this.img,
-    this.type,
-    this.height,
-    this.weight,
-    this.candy,
-    this.candyCount,
-    this.egg,
-    this.spawnChance,
-    this.avgSpawns,
-    this.spawnTime,
-    this.multipliers,
-    this.weaknesses,
-    this.nextEvolution,
+    required this.id,
+    required this.num,
+    required this.name,
+    required this.img,
+    required this.type,
+    required this.height,
+    required this.weight,
+    required this.candy,
+    required this.candyCount,
+    required this.egg,
+    required this.spawnChance,
+    required this.avgSpawns,
+    required this.spawnTime,
+    required this.multipliers,
+    required this.weaknesses,
+    required this.prevEvolution,
+    required this.nextEvolution,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
@@ -50,31 +52,10 @@ class Pokemon {
       spawnChance: json['spawn_chance'],
       avgSpawns: json['avg_spawns'],
       spawnTime: json['spawn_time'],
-      multipliers: json['multipliers'] != null
-          ? List<double>.from(json['multipliers'])
-          : null,
+      multipliers: List<double>.from(json['multipliers']),
       weaknesses: List<String>.from(json['weaknesses']),
-      nextEvolution: json['next_evolution'] != null
-          ? List<Evolution>.from(json['next_evolution']
-              .map((evolution) => Evolution.fromJson(evolution)))
-          : null,
-    );
-  }
-}
-
-class Evolution {
-  String? num;
-  String? name;
-
-  Evolution({
-    this.num,
-    this.name,
-  });
-
-  factory Evolution.fromJson(Map<String, dynamic> json) {
-    return Evolution(
-      num: json['num'],
-      name: json['name'],
+      prevEvolution: List<Map<String, String>>.from(json['prev_evolution']),
+      nextEvolution: List<Map<String, String>>.from(json['next_evolution']),
     );
   }
 }

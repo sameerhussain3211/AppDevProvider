@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-// import 'package:flutter/widgets.dart';
 import 'package:provider_app/pokemon.dart';
 
 class Homepage extends StatelessWidget {
@@ -12,13 +11,14 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Pokemon>>(
-        future: getData(),
+        future: getData(), // Call getData function here
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
+            print("the data from snap is  ${snapshot.data}");
             return Center(
               child: Text('Error is: ${snapshot.error}'),
             );
@@ -29,11 +29,11 @@ class Homepage extends StatelessWidget {
                 itemCount: pokemonList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
                 ),
                 itemBuilder: (context, index) {
-                  Pokemon pokemon = pokemonList[index];
+                  // pokemonModel pokemon1 = pokemonList[index];
                   return Card(
                     child: Container(
                       color: Colors.amber,
@@ -53,16 +53,21 @@ class Homepage extends StatelessWidget {
   }
 
   Future<List<Pokemon>> getData() async {
-    final response =
-        await http.get(Uri.parse('https://api.spacexdata.com/v3/missions'));
+    final response = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json'));
 
     if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body.toString()) as List;
-      List<Pokemon> products =
-          jsonResponse.map((e) => Pokemon.fromJson(e)).toList();
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> pokemonList = data['pokemon'];
 
-      return products;
+      List<Pokemon> pokemons =
+          pokemonList.map((json) => Pokemon.fromJson(json)).toList();
+
+      // Now you have a list of Pokemon instances
+      // You can use them as needed
+      return pokemons; // Return the list of Pokemon
     } else {
+      print('Failed to load data: ${response.statusCode}');
       throw Exception("Failed to get data");
     }
   }
