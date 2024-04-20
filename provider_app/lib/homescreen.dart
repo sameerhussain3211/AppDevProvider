@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider_app/dino.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:provider_app/pokemon.dart';
@@ -108,7 +109,14 @@ class Homepage extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        print("tapped");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Dino(pokemon);
+                            },
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
