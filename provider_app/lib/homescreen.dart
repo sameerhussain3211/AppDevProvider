@@ -55,12 +55,94 @@ class Homepage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   Pokemon pokemon = pokemonList[index];
+                  Color c = Colors.blueGrey;
+                  if (pokemon.type![0] != null) {
+                    if (pokemon.type![0] == 'Bug') {
+                      c = Colors.greenAccent;
+                    }
+                    if (pokemon.type![0] == 'Grass') {
+                      c = Colors.lightGreen;
+                    }
+                    if (pokemon.type![0] == 'Poison') {
+                      c = Colors.purpleAccent;
+                    }
+                    if (pokemon.type![0] == 'Ground') {
+                      c = Colors.brown;
+                    }
+                    if (pokemon.type![0] == 'Psychic') {
+                      c = Colors.pinkAccent;
+                    }
+                    if (pokemon.type![0] == 'Fighting') {
+                      c = Colors.yellow;
+                    }
+                    if (pokemon.type![0] == 'Rock') {
+                      c = Colors.indigo;
+                    }
+                    if (pokemon.type![0] == 'Ghost') {
+                      c = Colors.lightBlueAccent;
+                    }
+                    if (pokemon.type![0] == 'Ice') {
+                      c = Colors.blue;
+                    }
+                    if (pokemon.type![0] == 'Dragon') {
+                      c = const Color.fromARGB(255, 161, 11, 1);
+                    }
+
+                    if (pokemon.type![0] == 'Fire') {
+                      c = Colors.redAccent;
+                    }
+                    if (pokemon.type![0] == 'Water') {
+                      c = Colors.blueAccent;
+                    }
+                    if (pokemon.type![0] == 'Electric') {
+                      c = Colors.yellowAccent;
+                    }
+                  }
+
                   return Card(
-                    child: Column(
-                      children: [
-                        Image.network(pokemon.img ?? ''),
-                        Text(pokemon.name ?? ''),
-                      ],
+                    elevation: 5,
+                    color: c,
+                    margin: EdgeInsets.all(5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        print("tapped");
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              pokemon.name ?? '',
+                              textAlign: TextAlign.left,
+                            ),
+                            Container(
+                              height: 30,
+                              child: FloatingActionButton(
+                                splashColor: Colors.grey,
+                                onPressed: () {
+                                  // Handle button press
+                                },
+                                child: Text(
+                                  pokemon.type![0],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Image.network(pokemon.img ?? ''),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   );
                 },
