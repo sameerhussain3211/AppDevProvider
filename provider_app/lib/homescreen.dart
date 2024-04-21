@@ -26,6 +26,10 @@ class Homepage extends StatelessWidget {
     }
   }
 
+  String colorToHex(Color color) {
+    return '#${color.value.toRadixString(16).substring(2)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +102,8 @@ class Homepage extends StatelessWidget {
                     if (pokemon.type![0] == 'Electric') {
                       c = Colors.yellowAccent;
                     }
+                  } else {
+                    c = Colors.grey;
                   }
 
                   return Card(
@@ -109,14 +115,13 @@ class Homepage extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return Dino(pokemon);
-                            },
-                          ),
-                        );
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Dino(
+                            pokemonData: pokemon,
+                            col: colorToHex(c),
+                          );
+                        }));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
