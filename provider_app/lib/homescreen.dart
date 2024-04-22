@@ -34,7 +34,7 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pokemon App1'),
+        title: Text('Pokemon App'),
       ),
       body: FutureBuilder<List<Pokemon>>(
         future: fetchPokemonData(),
