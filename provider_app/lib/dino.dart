@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider_app/pokemon.dart';
@@ -11,10 +12,24 @@ class Dino extends StatelessWidget {
   }
 
   String numbersAsString = '.';
+  String weakness = '.';
+  String prev = '';
+  String nextEv = '';
 
   @override
   Widget build(BuildContext context) {
     numbersAsString = pokemonData.type!.join(', ');
+    weakness = pokemonData.weaknesses!.join(', ');
+    if (pokemonData.prevEvolution != null) {
+      for (int i = 0; i < pokemonData.prevEvolution!.length; i++) {
+        prev = prev + " " + pokemonData.prevEvolution![i].name.toString();
+      }
+    }
+    if (pokemonData.nextEvolution != null) {
+      for (int i = 0; i < pokemonData.nextEvolution!.length; i++) {
+        nextEv = nextEv + " " + pokemonData.nextEvolution![i].name.toString();
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: hexToColor(col),
@@ -25,7 +40,7 @@ class Dino extends StatelessWidget {
           children: [
             Expanded(
               flex: 4,
-              child: Container(
+              child: SizedBox(
                 // color: hexToColor(col),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -83,7 +98,7 @@ class Dino extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      SizedBox(
                           width: 200,
                           child: Image.network(
                             pokemonData.img ?? '',
@@ -102,6 +117,150 @@ class Dino extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Name"),
+                          const SizedBox(
+                            width: 100,
+                          ),
+                          Text(
+                            pokemonData.name ?? '',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Height"),
+                          const SizedBox(
+                            width: 99,
+                          ),
+                          Text(
+                            pokemonData.height ?? '',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Weight"),
+                          const SizedBox(
+                            width: 99,
+                          ),
+                          Text(
+                            pokemonData.weight ?? '',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Spawn Time"),
+                          const SizedBox(
+                            width: 65,
+                          ),
+                          Text(
+                            pokemonData.spawnTime ?? '',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Weakness"),
+                          const SizedBox(
+                            width: 75,
+                          ),
+                          Text(
+                            "$weakness",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Pre Evolution"),
+                          const SizedBox(
+                            width: 55,
+                          ),
+                          Container(
+                            child: Text(
+                              "$prev",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text("Next Evolution"),
+                          const SizedBox(
+                            width: 50,
+                          ),
+                          Container(
+                            child: Text(
+                              "$nextEv",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

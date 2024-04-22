@@ -150,7 +150,12 @@ class Homepage extends StatelessWidget {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Image.network(pokemon.img ?? ''),
+                                Container(
+                                    width: 100,
+                                    child: Image.network(
+                                      pokemon.img ?? '',
+                                      fit: BoxFit.cover,
+                                    )),
                               ],
                             )
                           ],
