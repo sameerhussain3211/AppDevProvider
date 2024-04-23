@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:provider_app/pokemon.dart';
 
 class Homepage extends StatelessWidget {
-  Homepage({Key? key});
+  const Homepage({Key? key});
 
   Future<List<Pokemon>> fetchPokemonData() async {
     final response = await http.get(Uri.parse(
@@ -34,17 +34,16 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pokemon App'),
+        title: const Text('Pokemon App'),
       ),
       body: FutureBuilder<List<Pokemon>>(
         future: fetchPokemonData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            print('Error: ${snapshot.error}');
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
@@ -60,56 +59,11 @@ class Homepage extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   Pokemon pokemon = pokemonList[index];
-                  Color c = Colors.blueGrey;
-                  if (pokemon.type![0] != null) {
-                    if (pokemon.type![0] == 'Bug') {
-                      c = Colors.greenAccent;
-                    }
-                    if (pokemon.type![0] == 'Grass') {
-                      c = Colors.lightGreen;
-                    }
-                    if (pokemon.type![0] == 'Poison') {
-                      c = Colors.purpleAccent;
-                    }
-                    if (pokemon.type![0] == 'Ground') {
-                      c = Colors.brown;
-                    }
-                    if (pokemon.type![0] == 'Psychic') {
-                      c = Colors.pinkAccent;
-                    }
-                    if (pokemon.type![0] == 'Fighting') {
-                      c = Colors.yellow;
-                    }
-                    if (pokemon.type![0] == 'Rock') {
-                      c = Colors.indigo;
-                    }
-                    if (pokemon.type![0] == 'Ghost') {
-                      c = Colors.lightBlueAccent;
-                    }
-                    if (pokemon.type![0] == 'Ice') {
-                      c = Colors.blue;
-                    }
-                    if (pokemon.type![0] == 'Dragon') {
-                      c = const Color.fromARGB(255, 161, 11, 1);
-                    }
-
-                    if (pokemon.type![0] == 'Fire') {
-                      c = Colors.redAccent;
-                    }
-                    if (pokemon.type![0] == 'Water') {
-                      c = Colors.blueAccent;
-                    }
-                    if (pokemon.type![0] == 'Electric') {
-                      c = Colors.yellowAccent;
-                    }
-                  } else {
-                    c = Colors.grey;
-                  }
-
+                  Color c = getColor(pokemon);
                   return Card(
                     elevation: 5,
                     color: c,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -117,7 +71,7 @@ class Homepage extends StatelessWidget {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return Dino(
+                          return dino(
                             pokemonData: pokemon,
                             col: colorToHex(c),
                           );
@@ -132,7 +86,7 @@ class Homepage extends StatelessWidget {
                               pokemon.name ?? '',
                               textAlign: TextAlign.left,
                             ),
-                            Container(
+                            SizedBox(
                               height: 30,
                               child: FloatingActionButton(
                                 splashColor: Colors.grey,
@@ -141,7 +95,7 @@ class Homepage extends StatelessWidget {
                                 },
                                 child: Text(
                                   pokemon.type![0],
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                               ),
                             ),
@@ -150,7 +104,7 @@ class Homepage extends StatelessWidget {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Container(
+                                SizedBox(
                                     width: 100,
                                     child: Image.network(
                                       pokemon.img ?? '',
@@ -166,7 +120,7 @@ class Homepage extends StatelessWidget {
                 },
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("No data available"),
               );
             }
@@ -174,5 +128,50 @@ class Homepage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Color getColor(Pokemon pokemon) {
+    Color c = Colors.blueGrey;
+    if (pokemon.type![0] == 'Bug') {
+      c = Colors.greenAccent;
+    }
+    if (pokemon.type![0] == 'Grass') {
+      c = Colors.lightGreen;
+    }
+    if (pokemon.type![0] == 'Poison') {
+      c = Colors.purpleAccent;
+    }
+    if (pokemon.type![0] == 'Ground') {
+      c = Colors.brown;
+    }
+    if (pokemon.type![0] == 'Psychic') {
+      c = Colors.pinkAccent;
+    }
+    if (pokemon.type![0] == 'Fighting') {
+      c = Colors.yellow;
+    }
+    if (pokemon.type![0] == 'Rock') {
+      c = Colors.indigo;
+    }
+    if (pokemon.type![0] == 'Ghost') {
+      c = Colors.lightBlueAccent;
+    }
+    if (pokemon.type![0] == 'Ice') {
+      c = Colors.blue;
+    }
+    if (pokemon.type![0] == 'Dragon') {
+      c = const Color.fromARGB(255, 161, 11, 1);
+    }
+
+    if (pokemon.type![0] == 'Fire') {
+      c = Colors.redAccent;
+    }
+    if (pokemon.type![0] == 'Water') {
+      c = Colors.blueAccent;
+    }
+    if (pokemon.type![0] == 'Electric') {
+      c = Colors.yellowAccent;
+    }
+    return c;
   }
 }

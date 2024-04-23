@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider_app/pokemon.dart';
 
-class Dino extends StatelessWidget {
+class dino extends StatelessWidget {
   final Pokemon pokemonData;
   final String col;
-  Dino({required this.pokemonData, required this.col});
+  dino({required this.pokemonData, required this.col});
   Color hexToColor(String code) {
     return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
@@ -52,6 +50,7 @@ class Dino extends StatelessWidget {
                             height: 30,
                           ),
                           SizedBox(
+                            width: 200,
                             child: Text(
                               pokemonData.name ?? '',
                               textAlign: TextAlign.left,
@@ -62,7 +61,7 @@ class Dino extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            width: 165,
+                            width: 150,
                           ),
                           SizedBox(
                             child: Text(
@@ -206,12 +205,15 @@ class Dino extends StatelessWidget {
                           const SizedBox(
                             width: 75,
                           ),
-                          Text(
-                            "$weakness",
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 200,
+                            child: Text(
+                              "$weakness",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -225,7 +227,8 @@ class Dino extends StatelessWidget {
                           const SizedBox(
                             width: 55,
                           ),
-                          Container(
+                          SizedBox(
+                            width: 200,
                             child: Text(
                               "$prev",
                               textAlign: TextAlign.left,
@@ -246,7 +249,8 @@ class Dino extends StatelessWidget {
                           const SizedBox(
                             width: 50,
                           ),
-                          Container(
+                          SizedBox(
+                            width: 200,
                             child: Text(
                               "$nextEv",
                               textAlign: TextAlign.left,
